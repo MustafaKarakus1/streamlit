@@ -16,16 +16,56 @@ st.set_page_config(
 
 # Helper functions
 def load_model_and_files():
-    """Load trained model and required files."""
+    """Load trained model and required files with detailed error handling."""
     try:
-        model = pickle.load(open('bank_marketing_model_V2.pkl', 'rb'))
-        feature_names = pickle.load(open('feature_names.pkl', 'rb'))
-        label_encoder = pickle.load(open('label_encoder.pkl', 'rb'))
-        deployment_info = pickle.load(open('deployment_info.pkl', 'rb'))
+        import os
+        
+        # Mevcut çalışma dizinini göster
+        current_dir = os.getcwd()
+        st.write(f"Çalışma dizini: {current_dir}")
+        
+        # Dizindeki dosyaları listele
+        files = os.listdir(current_dir)
+        st.write("Dizindeki dosyalar:", files)
+        
+        # Model dosyasını yüklemeyi dene
+        try:
+            model = pickle.load(open('bank_marketing_model_V2.pkl', 'rb'))
+            st.success("Model başarıyla yüklendi!")
+        except Exception as e:
+            st.error(f"Model yüklenirken hata: {str(e)}")
+            model = None
+        
+        # Feature names dosyasını yüklemeyi dene
+        try:
+            feature_names = pickle.load(open('feature_names.pkl', 'rb'))
+            st.success("Feature names başarıyla yüklendi!")
+        except Exception as e:
+            st.error(f"Feature names yüklenirken hata: {str(e)}")
+            feature_names = None
+        
+        # Label encoder dosyasını yüklemeyi dene
+        try:
+            label_encoder = pickle.load(open('label_encoder.pkl', 'rb'))
+            st.success("Label encoder başarıyla yüklendi!")
+        except Exception as e:
+            st.error(f"Label encoder yüklenirken hata: {str(e)}")
+            label_encoder = None
+        
+        # Deployment info dosyasını yüklemeyi dene
+        try:
+            deployment_info = pickle.load(open('deployment_info.pkl', 'rb'))
+            st.success("Deployment info başarıyla yüklendi!")
+        except Exception as e:
+            st.error(f"Deployment info yüklenirken hata: {str(e)}")
+            deployment_info = None
+        
         return model, feature_names, label_encoder, deployment_info
     
-    except FileNotFoundError as e:
-        st.error(f"Model files not found: {e}")
+    except Exception as main_error:
+        st.error(f"Genel hata: {str(main_error)}")
+        import traceback
+        st.error(f"Hata detayı: {traceback.format_exc()}")
         return None, None, None, None
 
 # Load model and related files
