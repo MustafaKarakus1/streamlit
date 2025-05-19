@@ -5,7 +5,7 @@ import pickle
 import matplotlib.pyplot as plt
 import seaborn as sns
 from PIL import Image
-
+import os
 # Page configuration
 st.set_page_config(
     page_title="Bank Marketing Term Deposit Prediction",
@@ -18,8 +18,7 @@ st.set_page_config(
 def load_model_and_files():
     """Load trained model and required files with detailed error handling."""
     try:
-        import os
-        
+
         # Mevcut çalışma dizinini göster
         current_dir = os.getcwd()
         st.write(f"Çalışma dizini: {current_dir}")
