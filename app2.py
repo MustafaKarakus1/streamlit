@@ -32,7 +32,7 @@ def load_model_and_files():
             model = pickle.load(open('bank_marketing_model_V2.pkl', 'rb'))
             st.success("Model başarıyla yüklendi!")
         except Exception as e:
-            st.error(f"Model yüklenirken hata: {str(e)}")
+            #st.error(f"Model yüklenirken hata: {str(e)}")
             model = None
         
         # Feature names dosyasını yüklemeyi dene
