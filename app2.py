@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from PIL import Image
 import os
+import sklearn._loss._loss
+
 # Page configuration
 st.set_page_config(
     page_title="Bank Marketing Term Deposit Prediction",
@@ -13,12 +15,13 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+sklearn._loss._loss.__pyx_unpickle_CyHalfBinomialLoss = lambda *args, **kwargs: None
 
 # Helper functions
 def load_model_and_files():
     """Load trained model and required files."""
     try:
-        model = pickle.load('bank_marketing_model_V2.pkl', 'rb')
+        model = pickle.load(open('bank_marketing_model_V2.pkl', 'rb'))
         feature_names = pickle.load(open('feature_names.pkl', 'rb'))
         label_encoder = pickle.load(open('label_encoder.pkl', 'rb'))
         deployment_info = pickle.load(open('deployment_info.pkl', 'rb'))
